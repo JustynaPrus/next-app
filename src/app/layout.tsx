@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+//import { ApolloWrapper } from "/@lib/apollo-wrapper";
 
 const openSans = Open_Sans({
   weight: "400",
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={openSans.className}>
+        {/* <ApolloWrapper>{children}</ApolloWrapper> */}
         {children}
       </body>
     </html>

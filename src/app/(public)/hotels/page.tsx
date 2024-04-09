@@ -1,15 +1,39 @@
 export const dynamic = "force-dynamic";
 
-import { getData } from "@/utils/utils";
+import Link from "next/link";
 
-export default function Hotels() {
-  const data = getData();
+import { getClient } from "@/graphql";
+import { gql } from "@apollo/client";
+
+const GetTimeQuery = gql`
+  query Hotel {
+    hotels {
+      id
+      name
+      description
+      slug
+    }
+  }
+`;
+
+type Hotel = {
+  id: number;
+  name: string;
+  description: string;
+  slug: string;
+};
+
+export default async function Hotels() {
+  const results = await getClient().query({ query: GetTimeQuery });
+  const hotels = results.data.hotels;
 
   return (
     <main>
       <h1>Hotels page</h1>
-      {data.map((hotel) => (
-        <p key={hotel.id}>{hotel.name}</p>
+      {hotels.map((hotel: Hotel) => (
+        <Link key={hotel.id} href={`/hotels/${hotel.slug}`}>
+          <p>{hotel.name}</p>
+        </Link>
       ))}
     </main>
   );

@@ -1,21 +1,53 @@
-import { getData } from "@/utils/utils";
+import { notFound } from "next/navigation";
+import { getClient } from "@/graphql";
+import { gql } from "@apollo/client";
+import Form from "@/components/Form/Form";
 
-// function generateStaticParams() {
-//   const hotels = getData();
+export const dynamicParams = false;
 
-//   return hotels.map((hotel) => ({
-//     slug: hotel.slug,
-//   }));
-// }
+const GetTimeQuery = gql`
+  query Hotel {
+    hotels {
+      name
+      slug
+    }
+  }
+`;
 
-export default function Hotel({ params }: { params: { slug: string } }) {
+type Hotel = {
+  name: string;
+  slug: string;
+};
+
+async function getHotel(slug: string) {
+  const results = await getClient().query({ query: GetTimeQuery });
+
+  return results.data.hotels.find((hotel: Hotel) => hotel.slug === slug);
+}
+
+export default async function Hotel({ params }: { params: { slug: string } }) {
   const { slug } = params;
+
+  const hotelName = await getHotel(slug);
+
+  if (!hotelName) {
+    notFound();
+  }
 
   return (
     <main>
       <p>
-        Hotel id: <span>{slug}</span>
+        Hotel: <b>{hotelName.name}</b>
       </p>
+      <Form/>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const results = await getClient().query({ query: GetTimeQuery });
+
+  return results.data.hotels.map((hotel: Hotel) => ({
+    slug: hotel.slug,
+  }));
 }
