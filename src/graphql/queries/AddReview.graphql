@@ -1,0 +1,13 @@
+mutation AddReviewMutation($id: ID!, $attribution: String!, $content: String!) {
+    createReview(
+      data: {
+        hotel: { connect: { id: $id } }
+        attribution: $attribution
+        content: $content
+      }
+    ) {
+      id
+      attribution
+      content
+    }
+  }

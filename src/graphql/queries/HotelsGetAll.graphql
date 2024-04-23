@@ -1,0 +1,8 @@
+query Hotel {
+    hotels {
+      id
+      name
+      description
+      slug
+    }
+  }

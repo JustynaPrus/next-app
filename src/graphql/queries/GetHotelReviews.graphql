@@ -1,0 +1,7 @@
+query Review($id: ID!) {
+    reviews(where: { hotel: { id: $id } }) {
+      attribution
+      id
+      content
+    }
+  }

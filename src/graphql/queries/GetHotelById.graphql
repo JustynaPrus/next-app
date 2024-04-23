@@ -1,0 +1,6 @@
+query HotelById($id: ID!) {
+    hotel(where: { id: $id }) {
+      slug
+      name
+    }
+  }
