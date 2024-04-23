@@ -1,35 +1,10 @@
 import { notFound } from "next/navigation";
-import { getClient } from "@/graphql";
-import { gql } from "@apollo/client";
 import Form from "@/components/Form/Form";
 import { revalidatePath } from "next/cache";
-
-const GetHotelsIds = gql`
-  query Hotel {
-    hotels {
-      id
-    }
-  }
-`;
-
-const GetHotelById = gql`
-  query HotelById($id: ID!) {
-    hotel(where: { id: $id }) {
-      slug
-      name
-    }
-  }
-`;
-
-const GetHotelReviews = gql`
-  query Review($id: ID!) {
-    reviews(where: { hotel: { id: $id } }) {
-      attribution
-      id
-      content
-    }
-  }
-`;
+import { Metadata } from 'next';
+import { getHotel } from "@/clientApi/hotel";
+import { getHotelReviews } from "@/clientApi/hotelReviews";
+import { getHotelsIds } from "@/clientApi/hotelsIds";
 
 const AddReview = `
   mutation AddReviewMutation($id: ID!, $attribution: String!, $content: String!) {
@@ -54,18 +29,6 @@ const PublishReview = `
     }
   }
 `;
-
-type Hotel = {
-  id: string;
-  name: string;
-  slug: string;
-};
-
-type Review = {
-  attribution: string;
-  id: string;
-  content: string;
-};
 
 const addReview = async (id: string, attribution: string, content: string) => {
   const res = await fetch(
@@ -116,25 +79,11 @@ const publishReview = async (id: string) => {
   return graphqlResponse.data;
 };
 
-async function getHotelReviews(slug: string) {
-  const results = await getClient().query({
-    query: GetHotelReviews,
-    variables: { id: slug },
-  });
-
-  return results.data.reviews;
+type HotelPageProps={
+  slug:string;
 }
 
-async function getHotel(slug: string) {
-  const results = await getClient().query({
-    query: GetHotelById,
-    variables: { id: slug },
-  });
-
-  return results.data.hotel;
-}
-
-export default async function Hotel({ params }: { params: { slug: string } }) {
+export default async function Hotel({ params }: { params: HotelPageProps }) {
   const { slug } = params;
 
   const [hotel, reviews] = await Promise.all([
@@ -164,12 +113,12 @@ export default async function Hotel({ params }: { params: { slug: string } }) {
   return (
     <main>
       <p>
-        Hotel: <b>{hotel.name}</b>
+        Hotel: <b>{hotel.hotel?.name}</b>
       </p>
       <Form onSubmit={onReviewSubmit} />
       <div>
         <h2>Reviews</h2>
-        {reviews?.map((review: Review) => {
+        {reviews.reviews?.map((review) => {
           return <p key={review.id}>{review.content}</p>;
         })}
       </div>
@@ -178,9 +127,25 @@ export default async function Hotel({ params }: { params: { slug: string } }) {
 }
 
 export async function generateStaticParams() {
-  const { data } = await getClient().query({ query: GetHotelsIds });
+  const data = await getHotelsIds();
 
-  return data.hotels.map((hotel: Hotel) => ({
+  return data.hotels.map((hotel) => ({
     slug: hotel.id,
   }));
+}
+
+export async function generateMetadata(
+  { params }: {params: HotelPageProps},
+): Promise<Metadata> {
+  const id = params.slug
+ 
+  // fetch data
+  const {hotel} = await getHotel(id)
+  if(!hotel){
+    notFound()
+  }
+ 
+  return {
+    title: hotel.name,
+  }
 }
