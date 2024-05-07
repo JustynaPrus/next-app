@@ -1,4 +1,5 @@
 import NavLink from "../NavLink/NavLink";
+import { SignInForm } from "../SignInForm/SignInForm";
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
@@ -20,6 +21,7 @@ export default function NavBar() {
       {MENU_LIST.map((link) => (
         <NavLink text={link.text} href={link.href} key={link.text} />
       ))}
+      <SignInForm/>
     </nav>
   );
 }

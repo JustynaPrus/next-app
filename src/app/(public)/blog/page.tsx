@@ -12,7 +12,6 @@ export default async function Blog() {
   return (
     <main>
       {links.map(el=><Link key={el} href={el}>{el}</Link>)}
-      
     </main>
   );
 }
