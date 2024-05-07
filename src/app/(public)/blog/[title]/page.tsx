@@ -1,19 +1,23 @@
-export async function generateStaticParams() {
+import React from 'react';
+import { notFound } from 'next/navigation';
 
-  const blogPosts=["title-1","title-2"]
-  return blogPosts.map((post) => ({
+import { MdxContent } from '@/app/MdxContent';
+import { getPost, getPostsFileNames } from './blogUtils';
+
+
+const BlogSlug = async ({ params }: { params: { title: string } }) => {
+  const post = await getPost(params.title);
+  if (!post) {
+    return notFound();
+  }
+  return <MdxContent source={post.serialized} />;
+};
+
+export default BlogSlug;
+
+export async function generateStaticParams() {
+  const fileNames = await getPostsFileNames();
+  return fileNames.map((post) => ({
     title: post,
   }));
-}
-
-export default function BlogPage({ params }: { params: { title: string } }) {
-  const { title } = params;
-
-  return (
-    <main>
-      <p>
-        Title: <span>{title}</span>
-      </p>
-    </main>
-  );
 }
