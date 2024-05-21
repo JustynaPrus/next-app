@@ -5,7 +5,7 @@ export function SignInForm() {
     <form
       action={async () => {
         "use server"
-        await signIn("github")
+        await signIn("github",{ redirectTo: "/profile" })
       }}
     >
       <button type="submit">Signin with GitHub</button>

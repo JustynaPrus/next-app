@@ -1,9 +1,18 @@
-"use client"
+import { redirect } from "next/navigation";
+import { auth } from "../../../../auth";
 
-export default function Profile() {
+export default async  function Profile() {
+  const session = await auth()
+ 
+  if(!session){
+    redirect("/")
+  }
+  if (!session.user){
+    return "Problem z logaowaniem"
+  }
   return (
     <main>
-      <p>Profile page</p>
+      <p>{JSON.stringify(session)}</p>
     </main>
   );
 }
