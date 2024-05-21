@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const openSans = Open_Sans({
   weight: "400",
@@ -20,6 +22,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={openSans.className}>
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
