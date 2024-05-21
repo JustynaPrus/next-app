@@ -20,7 +20,7 @@ export default function NavBar() {
   return (
     <nav>
       {MENU_LIST.map((link) => (
-        <NavLink text={link.text} href={link.href} key={link.text} />
+        <NavLink key={link.text} href={link.href} text={link.text} />
       ))}
       <SignInForm/>
       <SignOutForm/>

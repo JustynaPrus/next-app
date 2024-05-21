@@ -6,17 +6,17 @@ import path from 'path';
 import 'server-only';
 
 export type FrontmatterData={
-    title: string;
     author: string;
     desc: string;
     imageName: string;
     publishedAt:string;
-    tags:string
+    tags:string,
+    title: string;
   }
 
 type Post = {
-  serialized: MDXRemoteSerializeResult;
   frontmatter: FrontmatterData;
+  serialized: MDXRemoteSerializeResult;
 };
 
 export const getPostsFileNames = () => {

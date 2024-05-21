@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 
 import { MdxContent } from '@/app/MdxContent';
+
 import { getPost, getPostsFileNames } from './blogUtils';
 
 

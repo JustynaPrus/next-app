@@ -16,7 +16,7 @@ const MdxComponents = {
   p: ({ children }: MDXProps) => <p>{children}</p>,
 };
 
-export function MdxContent({ source }: MdxContentProps) {
+export const MdxContent = ({ source }: MdxContentProps) => {
   //@ts-ignore
   return <MDXRemote {...source} components={MdxComponents} />;
 }

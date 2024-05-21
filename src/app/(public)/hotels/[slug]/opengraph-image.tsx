@@ -1,7 +1,7 @@
-import { getHotel } from "@/clientApi/hotel";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ImageResponse } from 'next/og'
+
+import { getHotel } from "@/clientApi/hotel";
 
 // Image metadata
 export const alt = 'Sklep'

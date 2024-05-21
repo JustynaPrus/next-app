@@ -1,6 +1,6 @@
 import { signOut } from "../../../auth"
 
-export function SignOutForm() {
+export const SignOutForm = () => {
   return (
     <form
       action={async () => {

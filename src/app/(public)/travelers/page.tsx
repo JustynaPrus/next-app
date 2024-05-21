@@ -11,10 +11,10 @@ export default function Travelers() {
     <main>
       <p>Travelers page</p>
       <Image
-        width={500}
-        height={800}
         alt="random foto"
+        height={800}
         src="https://picsum.photos/500/800"
+        width={500}
       />
     </main>
   );

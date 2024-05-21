@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { getPostsFileNames } from "./[title]/blogUtils";
 import Link from "next/link";
+
+import { getPostsFileNames } from "./[title]/blogUtils";
 
 export const metadata: Metadata = {
   title: "Travelers Blog",

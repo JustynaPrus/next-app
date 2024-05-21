@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
-import Form from "@/components/Form/Form";
-import { revalidatePath } from "next/cache";
 import { Metadata } from 'next';
+import { revalidatePath } from "next/cache";
+import { notFound } from "next/navigation";
+
 import { getHotel } from "@/clientApi/hotel";
 import { getHotelReviews } from "@/clientApi/hotelReviews";
 import { getHotelsIds } from "@/clientApi/hotelsIds";
+import Form from "@/components/Form/Form";
 
 const AddReview = `
   mutation AddReviewMutation($id: ID!, $attribution: String!, $content: String!) {
@@ -96,11 +97,11 @@ export default async function Hotel({ params }: { params: HotelPageProps }) {
   }
 
   const onReviewSubmit = async ({
-    content,
     attribution,
+    content,
   }: {
-    content: string;
     attribution: string;
+    content: string;
   }) => {
     "use server";
 

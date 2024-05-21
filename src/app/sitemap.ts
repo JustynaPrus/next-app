@@ -1,5 +1,6 @@
-import { getHotelsIds } from "@/clientApi/hotelsIds";
 import { MetadataRoute } from "next/types";
+
+import { getHotelsIds } from "@/clientApi/hotelsIds";
 
 const BASE_URL = "http://localhost:3000";
 

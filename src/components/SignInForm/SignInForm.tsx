@@ -1,6 +1,6 @@
 import { signIn } from "../../../auth"
 
-export function SignInForm() {
+export const SignInForm = () => {
   return (
     <form
       action={async () => {

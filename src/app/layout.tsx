@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import type { Metadata } from "next";
+import { Open_Sans } from "next/font/google";
 
 const openSans = Open_Sans({
   weight: "400",
