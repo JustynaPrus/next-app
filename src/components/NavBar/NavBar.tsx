@@ -1,12 +1,12 @@
 import NavLink from "../NavLink/NavLink";
-import { SignInForm } from "../SignInForm/SignInForm";
-import { SignOutForm } from "../SignOutForm/SignOutForm";
 
 const MENU_LIST = [
   { text: "Home", href: "/" },
   { text: "Sign up", href: "/auth/signup/" },
   { text: "Sign in", href: "/auth/signin/" },
+  { text: "Sign out", href: "/auth/signout/" },
   { text: "Hotels", href: "/hotels/" },
+  { text: "Cart", href: "/cart/" },
   { text: "Profile", href: "/profile/" },
   { text: "Map", href: "/map/" },
   { text: "Blog", href: "/blog/" },
@@ -22,8 +22,6 @@ export default function NavBar() {
       {MENU_LIST.map((link) => (
         <NavLink key={link.text} href={link.href} text={link.text} />
       ))}
-      <SignInForm/>
-      <SignOutForm/>
     </nav>
   );
 }
