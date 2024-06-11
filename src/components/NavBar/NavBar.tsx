@@ -1,22 +1,28 @@
 import NavLink from "../NavLink/NavLink";
+import { getDictionary } from "../../../get-dictionary";
 
-const MENU_LIST = [
-  { text: "Home", href: "/" },
-  { text: "Sign up", href: "/auth/signup/" },
-  { text: "Sign in", href: "/auth/signin/" },
-  { text: "Sign out", href: "/auth/signout/" },
-  { text: "Hotels", href: "/hotels/" },
-  { text: "Cart", href: "/cart/" },
-  { text: "Profile", href: "/profile/" },
-  { text: "Map", href: "/map/" },
-  { text: "Blog", href: "/blog/" },
-  { text: "Travelers", href: "/travelers/" },
-  { text: "Privacy policy", href: "/privacy-policy/" },
-  { text: "Terms", href: "/terms/" },
-  { text: "About Us", href: "/about/" },
-];
+export default async function NavBar({
+  lang,
+}: { lang: "en" | "pl-PL" }) {
+  const dict = await getDictionary(lang);
 
-export default function NavBar() {
+  
+  const MENU_LIST = [
+    { text: dict.home, href: "/" },
+    { text: dict.signUp, href: "/auth/signup/" },
+    { text: dict.signIn, href: "/auth/signin/" },
+    { text: dict.signOut, href: "/auth/signout/" },
+    { text: dict.hotels, href: "/hotels/" },
+    { text: dict.cart, href: "/cart/" },
+    { text: dict.profile, href: "/profile/" },
+    { text: dict.map, href: "/map/" },
+    { text: dict.blog, href: "/blog/" },
+    { text: dict.travelers, href: "/travelers/" },
+    { text: dict.privacyPolicy, href: "/privacy-policy/" },
+    { text: dict.terms, href: "/terms/" },
+    { text: dict.aboutUs, href: "/about/" },
+  ];
+
   return (
     <nav>
       {MENU_LIST.map((link) => (

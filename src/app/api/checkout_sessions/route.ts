@@ -21,21 +21,8 @@ export async function POST(request: NextRequest) {
             //you can map body here
 			line_items: [
 				{
-					adjustable_quantity: {
-						enabled: true,
-						minimum: 0,
-						maximum: 99,
-					},
-					price_data: {
-						currency: "PLN",
-						unit_amount: 100,
-						product_data: {
-							name: "name",
-							images: ["url"],
-							metadata: { slug: "slug" },
-						},
-					},
-					quantity: 2,
+					price: "price_1PLVXSLmWV4inV4IOgS03e9n",
+					quantity: 1
 				},
 			],
 			mode: "payment",
